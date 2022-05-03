@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/vpfc/static/css/main.57ee649e.css",
-    "main.js": "/vpfc/static/js/main.8f9e555d.js",
+    "main.js": "/vpfc/static/js/main.b7ebe61f.js",
     "static/media/vfc.png": "/vpfc/static/media/vfc.12302f027fd0497ac41f.png",
     "static/media/jugador.png": "/vpfc/static/media/jugador.79ba998751efccd4e1af.png",
     "index.html": "/vpfc/index.html",
     "main.57ee649e.css.map": "/vpfc/static/css/main.57ee649e.css.map",
-    "main.8f9e555d.js.map": "/vpfc/static/js/main.8f9e555d.js.map"
+    "main.b7ebe61f.js.map": "/vpfc/static/js/main.b7ebe61f.js.map"
   },
   "entrypoints": [
     "static/css/main.57ee649e.css",
-    "static/js/main.8f9e555d.js"
+    "static/js/main.b7ebe61f.js"
   ]
 }
