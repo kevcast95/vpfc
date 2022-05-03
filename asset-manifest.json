@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/movie_db/static/css/main.57ee649e.css",
+    "main.js": "/movie_db/static/js/main.e58982de.js",
+    "static/media/vfc.png": "/movie_db/static/media/vfc.12302f027fd0497ac41f.png",
+    "static/media/jugador.png": "/movie_db/static/media/jugador.79ba998751efccd4e1af.png",
+    "index.html": "/movie_db/index.html",
+    "main.57ee649e.css.map": "/movie_db/static/css/main.57ee649e.css.map",
+    "main.e58982de.js.map": "/movie_db/static/js/main.e58982de.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.57ee649e.css",
+    "static/js/main.e58982de.js"
+  ]
+}
