@@ -124,6 +124,130 @@ function ClinicHistory({ patientList,userName }){
                             <input type="text" name="doctor" value={userName.name} onChange={({target})=>setClinicHistoryLocal({...clinicHistoryLocal, [target.name]: target.value})}/>
                         </div>      
                     </div>
+                    <div className={styles.rows}>
+                        <div className={styles.check}>
+                            <h3>Antecedentes Personales Patologicos</h3>
+                            <label for="cardio">Cardiovasculares</label>
+                            <input type="checkbox" value="cardio"/>
+                            <label for="pulmonar">Pulmonares</label>
+                            <input type="checkbox" value="pulmonar" />
+                            <label for="pulmonar">Digestivos</label>
+                            <input type="checkbox" value="pulmonar" /> 
+                            <label for="pulmonar">Diabetes</label> 
+                            <input type="checkbox" value="pulmonar" /> <br />
+                            <label for="pulmonar">Renales</label>
+                            <input type="checkbox" value="pulmonar" />
+                            <label for="pulmonar">Quirúrgicos</label>
+                            <input type="checkbox" value="pulmonar" />
+                            <label for="pulmonar">Transfusiones</label>
+                            <input type="checkbox" value="pulmonar" />
+                        </div>
+                        <div className={styles.textBox}>
+                            <textarea name="medicamentos_APP" cols="30" rows="5" placeholder="Medicamentos:" ></textarea>          
+                        </div>
+                        <div className={styles.textBox}>
+                            <textarea name="especifique_APP" cols="30" rows="5" placeholder="Especifique:" ></textarea>          
+                        </div>
+                    </div>
+                    <div className={styles.rows}>
+                        <div className={styles.check}>
+                            <h3>Antecedentes Personales No Patologicos</h3>
+                            <label for="alcohol">Alcoholismo</label>
+                            <input type="checkbox" value="alcohol"/>
+                            <label for="tabaquismo">Tabaquismo</label>
+                            <input type="checkbox" value="tabaquismo" />
+                            <label for="inmunizaciones">Inmunizaciones</label>
+                            <input type="checkbox" value="inmunizaciones" />
+                        </div>
+                        <div className={styles.textBox}>
+                            <textarea name="tipos_drogas" cols="30" rows="5" placeholder="¿Cuales Drogas?" ></textarea>          
+                        </div>
+                        <div className={styles.textBox}>
+                            <textarea name="otras_enfermedades" cols="30" rows="5" placeholder="Otros:" ></textarea>          
+                        </div>
+                    </div>
+                    <h3 className={styles.antecedentesF}>Antecedentes Familiares</h3>
+                    <div className={styles.rows}>
+                        <div className={styles.radio}>
+                            <label for="viveP"> Padre: Vive </label>
+                            <div>
+                                <input type="radio" name="viveP"  value="Si" onChange={({target})=>setClinicHistoryLocal({...clinicHistoryLocal, [target.name]: target.value})}/> Si
+                            </div>
+                            <div>
+                                <input type="radio" name="viveP" value="No" onChange={({target})=>setClinicHistoryLocal({...clinicHistoryLocal, [target.name]: target.value})}/> No
+                            </div>
+                        </div>
+                        <div className={styles.textBox}>
+                            <textarea name="enfermedadesP" cols="20" rows="5" placeholder="Enfermedades que padece:" ></textarea>          
+                        </div>
+                        <div className={styles.radio}>
+                            <label for="viveM"> Madre: Vive </label>
+                            <div>
+                                <input type="radio" name="viveM"  value="Si" onChange={({target})=>setClinicHistoryLocal({...clinicHistoryLocal, [target.name]: target.value})}/> Si
+                            </div>
+                            <div>
+                                <input type="radio" name="viveM" value="No" onChange={({target})=>setClinicHistoryLocal({...clinicHistoryLocal, [target.name]: target.value})}/> No
+                            </div>
+                        </div>
+                        <div className={styles.textBox}>
+                            <textarea name="enfermedadesM" cols="20" rows="5" placeholder="Enfermedades que padece:" ></textarea>          
+                        </div>
+                    </div>
+                    <div className={styles.rows}>
+                        <div className={styles.radio}>
+                            <label for="viveH"> Hermanos: Vive </label>
+                            <div>
+                                <input type="radio" name="viveH"  value="Si" onChange={({target})=>setClinicHistoryLocal({...clinicHistoryLocal, [target.name]: target.value})}/> Si
+                            </div>
+                            <div>
+                                <input type="radio" name="viveH" value="No" onChange={({target})=>setClinicHistoryLocal({...clinicHistoryLocal, [target.name]: target.value})}/> No
+                            </div>
+                        </div>
+                        <div className={styles.field}>
+                            <label for="numerohermanos">Cuantos? </label>
+                            <input type="number"  name="numerohermanos" /> 
+                        </div>
+                        <div className={styles.textBox}>
+                            <textarea name="enfermedadesH" cols="20" rows="5" placeholder="Enfermedades que padece:" ></textarea>          
+                        </div>
+                    </div>
+                    <div className={styles.rows}>
+                        <div className={styles.files}>
+                            <label for="ecografia"><b>ECOGRAFIAS</b></label>
+                            <input type="file" name="ecografia"/>
+                        </div>
+                        <div className={styles.files}>
+                            <label for="radiografia"><b>RADIOGRAFIAS</b></label>
+                            <input type="file" name="radiografia"/>
+                        </div>
+                        <div className={styles.files}>
+                            <label for="resonancia"><b>RESONANCIAS</b></label>
+                            <input type="file" name="resonancia"/>
+                        </div>
+                        <div className={styles.files}>
+                            <label for="ecocardiogramas"><b>ECOCARDIOGRAMAS</b></label>
+                            <input type="file" name="ecocardiogramas"/>
+                        </div>
+                    </div>
+                    <div className={styles.rows}>
+                        <div className={styles.files}>
+                            <label for="electrocardiograma"> <b>ELECTROCARDIOGRAMA</b></label>
+                            <input type="file" name="electrocardiograma"/>
+                        </div>
+                        <div className={styles.files}>
+                            <label for="examenesLab"><b>EXAMENES DE LABORATORIO</b></label>
+                            <input type="file" name="examenesLab"/>
+                        </div>
+                        <div className={styles.files}>
+                            <label for="cuadroHematico"><b>CUADRO HEMATICO</b></label>
+                            <input type="file" name="cuadroHematico"/>
+                        </div>
+                        <div className={styles.files}>
+                            <label for="parcialOrina"><b>PARCIAL DE ORINA</b></label>
+                            <input type="file" name="parcialOrina"/>
+                        </div>
+
+                    </div>
                 </form>
                 <button type="button" className={styles.send_history} onClick={()=>sendClinicalHistory()}>
                     Enviar

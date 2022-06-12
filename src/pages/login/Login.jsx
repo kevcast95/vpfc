@@ -4,6 +4,7 @@ import { Link, useNavigate   } from "react-router-dom";
 import { auth, signInWithEmailAndPassword } from "../../connection/firebase"
 import { useAuthState } from "react-firebase-hooks/auth"
 import { toastMessage } from '../../utils/toast'
+import vfc from "../../img/vfc.png"
 
 export function Login(){
     const navigate = useNavigate ();
@@ -30,9 +31,10 @@ export function Login(){
     }
 
     return (
-        <div>
+        <div className={styles.container}>
             <form className={styles.containerLogin}>
-                <h2 className={styles.titleLogin}>Bienvenido</h2>
+                <img className={styles.logo} src={vfc} alt="logo"/>
+                {/* <h2 className={styles.titleLogin}>Bienvenido</h2> */}
                 <div>
                     <input 
                         type="text" 

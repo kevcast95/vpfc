@@ -24,7 +24,7 @@ function PhysicalExploration({ userName }){
         <h1 className={styles.title}>Exploración Física</h1>
 
             <form className={styles.containerForm}>
-                <div className={styles.rows}>
+                {/* <div className={styles.rows}>
                     <div className={styles.field}>
                         <label for="fc">Signos vitales: </label>
                         <input type="text" placeholder="Frecuencia Cardiaca" name="fc" 
@@ -213,7 +213,7 @@ function PhysicalExploration({ userName }){
                             )}
                         ></textarea>
                     </div>
-                </div>
+                </div> */}
             </form>
             <button type="button" className={styles.send_history} onClick={()=>sendPrepare()}>
                     Enviar

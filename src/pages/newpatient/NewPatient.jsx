@@ -114,6 +114,16 @@ function NewPatient({ userName }){
                     />
                 </div>
                 <div>
+                    <label>Subir una foto</label> <br />
+                    <input 
+                        type="file" 
+                        className={styles.inputPic} 
+                        placeholder="Agregar Foto" 
+                        name="pic"
+                        onChange={({target})=>setNewPatient({...newPatient, [target.name]: target.value})}
+                    />
+                </div>
+                <div>
                     <button type="button" className={styles.button} onClick={()=>handleAddPatient()}>
                         Envíar
                     </button>

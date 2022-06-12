@@ -1,4 +1,8 @@
 
+.logo{
+    height: 150px;
+    margin: 5%;
+}
 .containerLogin{
     position: relative;
     width: 400px;
@@ -6,7 +10,7 @@
     overflow: hidden;
     top:50px;
     color: black;
-    background: #ffffff;
+    background: transparent;
     border-radius: 20px;
     text-align: center;
     margin: auto auto;
