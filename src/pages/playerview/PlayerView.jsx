@@ -15,7 +15,7 @@ function PlayerView({
   patientList, clinicalHistoryFireBase, therapy, prepare, userName,
 }) {
   const params = useParams();
-  console.log('clinicalHistoryFireBase:', clinicalHistoryFireBase);
+  // console.log('clinicalHistoryFireBase:', clinicalHistoryFireBase);
   const { id } = params;
   const currentPatient = patientList?.filter(((patient) => patient.idDoc === id));
   const dispatch = useDispatch();
@@ -26,7 +26,6 @@ function PlayerView({
       getPrepare(id, dispatch);
     }
   }, []);
-  console.log(prepare);
   return (
     <>
       <header>
@@ -200,6 +199,98 @@ function PlayerView({
               {' '}
               <br />
               {clinicalHistoryFireBase?.other_drugs}
+            </li>
+          </ul>
+          <ul className={styles.items}>
+            <li className={styles.item}>
+              <a href={clinicalHistoryFireBase.ecografia} download>
+                <button
+                  type="button"
+                  disabled={!clinicalHistoryFireBase.ecografia}
+                  style={{ width: '180px', padding: '5px' }}
+                >
+                  ECOGRAFÍA
+                </button>
+              </a>
+            </li>
+            <li className={styles.item}>
+              <a href={clinicalHistoryFireBase.radiografia} download>
+                <button
+                  type="button"
+                  disabled={!clinicalHistoryFireBase.radiografia}
+                  style={{ width: '180px', padding: '5px' }}
+                >
+                  RADIOGRAFÍA
+                </button>
+              </a>
+            </li>
+            <li className={styles.item}>
+              <a href={clinicalHistoryFireBase.resonancia} download>
+                <button
+                  type="button"
+                  disabled={!clinicalHistoryFireBase.resonancia}
+                  style={{ width: '180px', padding: '5px' }}
+                >
+                  RESONANCIA
+                </button>
+              </a>
+            </li>
+            <li className={styles.item}>
+              <a href={clinicalHistoryFireBase.ecocardiogramas} download>
+                <button
+                  type="button"
+                  disabled={!clinicalHistoryFireBase.ecocardiogramas}
+                  style={{ width: '180px', padding: '5px' }}
+                >
+                  ECOCARDIOGRAMA
+                </button>
+              </a>
+            </li>
+          </ul>
+          <ul className={styles.items}>
+            <li className={styles.item}>
+              <a href={clinicalHistoryFireBase.electrocardiograma} download>
+                <button
+                  type="button"
+                  disabled={!clinicalHistoryFireBase.electrocardiograma}
+                  style={{ width: '180px', padding: '5px' }}
+                >
+                  ELECTROCARDIOGRAMA
+                </button>
+              </a>
+            </li>
+            <li className={styles.item}>
+              <a href={clinicalHistoryFireBase.examenesLab} download>
+                <button
+                  type="button"
+                  disabled={!clinicalHistoryFireBase.examenesLab}
+                  style={{ width: '180px', padding: '5px' }}
+                >
+                  EX. DE LABORATORIO
+                </button>
+              </a>
+            </li>
+            <li className={styles.item}>
+              <a href={clinicalHistoryFireBase.cuadroHematico} download>
+                <button
+                  type="button"
+                  disabled={!clinicalHistoryFireBase.cuadroHematico}
+                  style={{ width: '180px', padding: '5px' }}
+                >
+                  CUADRO HÉMATICO
+                </button>
+              </a>
+            </li>
+            <li className={styles.item}>
+              <a href={clinicalHistoryFireBase.parcialOrina} download>
+                <button
+                  type="button"
+                  disabled={!clinicalHistoryFireBase.parcialOrina}
+                  style={{ width: '180px', padding: '5px' }}
+                >
+                  PARCIAL DE ORINA
+                </button>
+              </a>
             </li>
           </ul>
           <div className={styles.containerFt}>

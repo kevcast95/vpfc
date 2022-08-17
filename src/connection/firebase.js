@@ -13,7 +13,10 @@ import {
   query,
   onSnapshot,
 } from 'firebase/firestore';
-import { getStorage, ref, uploadBytesResumable } from 'firebase/storage';
+import {
+  getStorage, ref, uploadBytesResumable, getDownloadURL,
+} from 'firebase/storage';
+import { useState } from 'react';
 import { toastMessage } from '../utils/toast';
 import {
   setPatientList,
@@ -37,7 +40,6 @@ const firebaseConfig = {
 const fb = firebase.initializeApp(firebaseConfig);
 const auth = fb.auth();
 const db = fb.firestore();
-
 const signUpWithEmailAndPassword = async (name, profesion, email, password) => {
   try {
     const res = await auth.createUserWithEmailAndPassword(email, password);
@@ -87,7 +89,6 @@ const getclinicalHistory = async (id, dispatch) => {
       dispatch(clearClinicalHistory());
     } else {
       querySnapshot.forEach((doc) => {
-        console.log('doc.data():', doc.data());
         dispatch(setClinicalHistory(doc.data()));
       });
     }
@@ -116,7 +117,6 @@ const getTherapy = async (id, dispatch) => {
 };
 
 const getPrepare = async (id, dispatch) => {
-  console.log(id);
   try {
     const userRef = collection(db, 'prepare');
     const q = query(userRef, where('idDoc', '==', id));
@@ -134,14 +134,19 @@ const getPrepare = async (id, dispatch) => {
   }
 };
 
-const uploadFiles = (files) => {
-  // /Users/kevcast/Documents/vpfc/src/img/jugador.png
+const uploadFiles = (studioName, file, files, setfiles) => {
   const storage = getStorage();
-  const valueFiles = Object.values(files);
-  console.log('valueFiles:', valueFiles);
-  valueFiles.forEach((file) => {
-    const storageRef = ref(storage, `/files/${file.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
+  const storageRef = ref(storage, `/files/${file.name}`);
+  const uploadTask = uploadBytesResumable(storageRef, file);
+  uploadTask.on('state_changed', (snapshot) => {
+    const percent = Math.round(
+      (snapshot.bytesTransferred / snapshot.totalBytes) * 100,
+    );
+    setfiles({ ...files, percent });
+  }, (err) => setfiles({ ...files, err }), () => {
+    getDownloadURL(uploadTask.snapshot.ref).then(async (url) => {
+      setfiles({ ...files, [studioName]: url, percent: null });
+    });
   });
 };
 
@@ -167,42 +172,49 @@ const addPatient = async (patientInfo, navigate) => {
 };
 
 const addClinicalHistory = async (patientHistory, navigate) => {
+  const fullPatientHistory = Object.assign(patientHistory, patientHistory.files);
   try {
-    const docRef = await setDoc(doc(db, 'clinicalHistory', patientHistory.idDoc), {
-      allergy: patientHistory.allergy || 'NA',
-      bloodType: patientHistory.bloodType || 'NA',
-      consultation: patientHistory.consultation || 'NA',
-      doctor: patientHistory.doctor || 'NA',
-      illness: patientHistory.illness || 'NA',
-      injury: patientHistory.injury || 'NA',
-      medicine: patientHistory.medicine || 'NA',
-      sex: patientHistory.sex || 'NA',
-      surgery: patientHistory.surgery || 'NA',
-      surgeryBool: patientHistory.surgeryBool || 'NA',
-      tranfusion: patientHistory.tranfusion || 'NA',
-      tranfusionReaction: patientHistory.tranfusionReaction || 'NA',
-      idDoc: patientHistory.idDoc || 'NA',
-      viveH: patientHistory.viveH || 'NA',
-      viveM: patientHistory.viveH || 'NA',
-      viveP: patientHistory.viveH || 'NA',
-      fatherIllbness: patientHistory.enfermedadesP || 'NA',
-      motherIllness: patientHistory.enfermedadesM || 'NA',
-      simbIllness: patientHistory.enfermedadesH || 'NA',
-      medicamentos_APP: patientHistory.medicamentos_APP || 'NA',
-      numberSimblings: patientHistory.numerohermanos || 'NA',
-      drugs_types: patientHistory.drugs_types || 'NA',
-      other_drugs: patientHistory.other_drugs || 'NA',
-      alcohol: patientHistory.alcohol || false,
-      smook: patientHistory.tabaquismo || false,
-      inmun: patientHistory.inmunizaciones || false,
-      cardio: patientHistory.cardio || false,
-      pulmonary: patientHistory.pulmonary || false,
-      digestive: patientHistory.digestive || false,
-      diabetes: patientHistory.diabetes || false,
-      renal: patientHistory.renal || false,
-      surgical: patientHistory.surgical || false,
+    const docRef = await setDoc(doc(db, 'clinicalHistory', fullPatientHistory.idDoc), {
+      allergy: fullPatientHistory.allergy || 'NA',
+      bloodType: fullPatientHistory.bloodType || 'NA',
+      consultation: fullPatientHistory.consultation || 'NA',
+      doctor: fullPatientHistory.doctor || 'NA',
+      illness: fullPatientHistory.illness || 'NA',
+      injury: fullPatientHistory.injury || 'NA',
+      medicine: fullPatientHistory.medicine || 'NA',
+      sex: fullPatientHistory.sex || 'NA',
+      surgery: fullPatientHistory.surgery || 'NA',
+      surgeryBool: fullPatientHistory.surgeryBool || 'NA',
+      tranfusion: fullPatientHistory.tranfusion || 'NA',
+      tranfusionReaction: fullPatientHistory.tranfusionReaction || 'NA',
+      idDoc: fullPatientHistory.idDoc || 'NA',
+      viveH: fullPatientHistory.viveH || 'NA',
+      viveM: fullPatientHistory.viveH || 'NA',
+      viveP: fullPatientHistory.viveH || 'NA',
+      fatherIllbness: fullPatientHistory.enfermedadesP || 'NA',
+      motherIllness: fullPatientHistory.enfermedadesM || 'NA',
+      simbIllness: fullPatientHistory.enfermedadesH || 'NA',
+      medicamentos_APP: fullPatientHistory.medicamentos_APP || 'NA',
+      numberSimblings: fullPatientHistory.numerohermanos || 'NA',
+      drugs_types: fullPatientHistory.drugs_types || 'NA',
+      other_drugs: fullPatientHistory.other_drugs || 'NA',
+      alcohol: fullPatientHistory.alcohol || false,
+      smook: fullPatientHistory.tabaquismo || false,
+      inmun: fullPatientHistory.inmunizaciones || false,
+      cardio: fullPatientHistory.cardio || false,
+      pulmonary: fullPatientHistory.pulmonary || false,
+      digestive: fullPatientHistory.digestive || false,
+      diabetes: fullPatientHistory.diabetes || false,
+      renal: fullPatientHistory.renal || false,
+      surgical: fullPatientHistory.surgical || false,
+      cuadroHematico: fullPatientHistory.cuadroHematico || false,
+      ecocardiogramas: fullPatientHistory.ecocardiogramas || false,
+      ecografia: fullPatientHistory.ecografia || false,
+      electrocardiograma: fullPatientHistory.electrocardiograma || false,
+      examenesLab: fullPatientHistory.examenesLab || false,
+      parcialOrina: fullPatientHistory.parcialOrina || false,
+      radiografia: fullPatientHistory.radiografia || false,
     });
-    uploadFiles(patientHistory.files);
     navigate(`/${patientHistory.idDoc}/PlayerView`);
     toastMessage('success', 'Historia clinica actualizada correctamente', 'error_adding_favorite');
   } catch (e) {
@@ -212,7 +224,6 @@ const addClinicalHistory = async (patientHistory, navigate) => {
 };
 
 const addTherapy = async (patinettherapy, navigate) => {
-  console.log('patinettherapy', patinettherapy);
   try {
     const docRef = await setDoc(doc(db, 'therapy', patinettherapy.idDoc), {
       inDate: patinettherapy.inDate || 'NA',
@@ -316,4 +327,5 @@ export {
   addPatient,
   getPatients,
   logOut,
+  uploadFiles,
 };

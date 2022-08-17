@@ -117,7 +117,7 @@ function NewPatient({ userName }) {
               onChange={({ target }) => setNewPatient({ ...newPatient, [target.name]: `${target.value} cm` })}
             />
           </div>
-          <div>
+          {/* <div>
             <label>Subir una foto</label>
             {' '}
             <br />
@@ -128,7 +128,7 @@ function NewPatient({ userName }) {
               name="pic"
               onChange={({ target }) => setNewPatient({ ...newPatient, [target.name]: target.value })}
             />
-          </div>
+          </div> */}
           <div>
             <button type="button" className={styles.button} onClick={() => handleAddPatient()}>
               Envíar

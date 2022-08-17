@@ -5,12 +5,11 @@ import { connect } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import NavBar from '../../NavBar';
 import styles from './ClinicHistory.module.css';
-import { addClinicalHistory } from '../../connection/firebase';
+import { addClinicalHistory, uploadFiles } from '../../connection/firebase';
 
 function ClinicHistory({ patientList, userName }) {
   const [clinicHistoryLocal, setClinicHistoryLocal] = useState({});
   const [files, setfiles] = useState({});
-  console.log('files:', files);
   const navigate = useNavigate();
   const params = useParams();
   const { id } = params;
@@ -48,6 +47,12 @@ function ClinicHistory({ patientList, userName }) {
     },
   ];
 
+  const loadingfiles = (target) => {
+    const file = target.files[0];
+    const studioName = target.name;
+    uploadFiles(studioName, file, files, setfiles);
+  };
+  console.log('files:', files);
   return (
     <>
       <header>
@@ -527,7 +532,7 @@ function ClinicHistory({ patientList, userName }) {
               <input
                 type="file"
                 onChange={
-                  ({ target }) => setfiles({ ...files, [target.name]: target.files[0] })
+                  ({ target }) => loadingfiles(target)
                 }
                 name="ecografia"
               />
@@ -537,7 +542,7 @@ function ClinicHistory({ patientList, userName }) {
               <input
                 type="file"
                 onChange={
-                  ({ target }) => setfiles({ ...files, [target.name]: target.files[0] })
+                  ({ target }) => loadingfiles(target)
                 }
                 name="radiografia"
               />
@@ -547,7 +552,7 @@ function ClinicHistory({ patientList, userName }) {
               <input
                 type="file"
                 onChange={
-                  ({ target }) => setfiles({ ...files, [target.name]: target.files[0] })
+                  ({ target }) => loadingfiles(target)
                 }
                 name="resonancia"
               />
@@ -557,7 +562,7 @@ function ClinicHistory({ patientList, userName }) {
               <input
                 type="file"
                 onChange={
-                  ({ target }) => setfiles({ ...files, [target.name]: target.files[0] })
+                  ({ target }) => loadingfiles(target)
                 }
                 name="ecocardiogramas"
               />
@@ -572,7 +577,7 @@ function ClinicHistory({ patientList, userName }) {
               <input
                 type="file"
                 onChange={
-                  ({ target }) => setfiles({ ...files, [target.name]: target.files[0] })
+                  ({ target }) => loadingfiles(target)
                 }
                 name="electrocardiograma"
               />
@@ -582,7 +587,7 @@ function ClinicHistory({ patientList, userName }) {
               <input
                 type="file"
                 onChange={
-                  ({ target }) => setfiles({ ...files, [target.name]: target.files[0] })
+                  ({ target }) => loadingfiles(target)
                 }
                 name="examenesLab"
               />
@@ -592,7 +597,7 @@ function ClinicHistory({ patientList, userName }) {
               <input
                 type="file"
                 onChange={
-                  ({ target }) => setfiles({ ...files, [target.name]: target.files[0] })
+                  ({ target }) => loadingfiles(target)
                 }
                 name="cuadroHematico"
               />
@@ -602,15 +607,22 @@ function ClinicHistory({ patientList, userName }) {
               <input
                 type="file"
                 onChange={
-                  ({ target }) => setfiles({ ...files, [target.name]: target.files[0] })
+                  ({ target }) => loadingfiles(target)
                 }
                 name="parcialOrina"
               />
             </div>
 
           </div>
+          {files.percent < 100 && files.percent !== null
+            && <h2 style={{ textAling: 'center' }}>Cargando archivos</h2>}
         </form>
-        <button type="button" className={styles.send_history} onClick={() => sendClinicalHistory()}>
+        <button
+          type="button"
+          className={styles.send_history}
+          onClick={() => sendClinicalHistory()}
+          disabled={!!(files.percent < 100 && files.percent !== null)}
+        >
           Enviar
         </button>
       </main>
