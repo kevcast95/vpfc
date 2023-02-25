@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
 import NavBar from '../../NavBar';
 import styles from './PlayerList.module.css';
-import { getPatients } from '../../connection/firebase';
+import { getPatients, deletePatient } from '../../connection/firebase';
 
 function PlayerList({ patientList }) {
   const dispatch = useDispatch();
@@ -13,6 +13,11 @@ function PlayerList({ patientList }) {
     getPatients(dispatch);
   }, []);
 
+  const remove = (id) => {
+    console.log('HOla');
+    deletePatient(id);
+    getPatients(dispatch);
+  };
   return (
     <>
       <header>
@@ -33,6 +38,7 @@ function PlayerList({ patientList }) {
             <th>CELULAR</th>
             {' '}
             <th>PESO</th>
+            <th>ACCIÓN</th>
           </tr>
           {
             patientList.map((patient) => (
@@ -55,6 +61,15 @@ function PlayerList({ patientList }) {
                 </td>
                 <td>
                   <Link className={styles.link} to={`/${patient.idDoc}/PlayerView`}>{patient.weight}</Link>
+                </td>
+                <td style={{ display: 'flex', justifyContent: 'center' }}>
+                  <button
+                    type="button"
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => remove(patient.idDoc)}
+                  >
+                    Eliminar
+                  </button>
                 </td>
               </tr>
             ))

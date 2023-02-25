@@ -12,6 +12,7 @@ import {
   collection,
   query,
   onSnapshot,
+  deleteDoc,
 } from 'firebase/firestore';
 import {
   getStorage, ref, uploadBytesResumable, getDownloadURL,
@@ -40,6 +41,16 @@ const firebaseConfig = {
 const fb = firebase.initializeApp(firebaseConfig);
 const auth = fb.auth();
 const db = fb.firestore();
+
+const deletePatient = async (id) => {
+  try {
+    const docRef = doc(db, 'patients', id);
+    await deleteDoc(docRef);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const signUpWithEmailAndPassword = async (name, profesion, email, password) => {
   try {
     const res = await auth.createUserWithEmailAndPassword(email, password);
@@ -328,4 +339,5 @@ export {
   getPatients,
   logOut,
   uploadFiles,
+  deletePatient,
 };
