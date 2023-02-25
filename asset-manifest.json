@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/vpfc/static/css/main.1f34a53f.css",
-    "main.js": "/vpfc/static/js/main.593a6b59.js",
+    "main.css": "/vpfc/static/css/main.09993917.css",
+    "main.js": "/vpfc/static/js/main.32232b71.js",
     "static/media/vfc.png": "/vpfc/static/media/vfc.12302f027fd0497ac41f.png",
     "index.html": "/vpfc/index.html",
-    "main.1f34a53f.css.map": "/vpfc/static/css/main.1f34a53f.css.map",
-    "main.593a6b59.js.map": "/vpfc/static/js/main.593a6b59.js.map"
+    "main.09993917.css.map": "/vpfc/static/css/main.09993917.css.map",
+    "main.32232b71.js.map": "/vpfc/static/js/main.32232b71.js.map"
   },
   "entrypoints": [
-    "static/css/main.1f34a53f.css",
-    "static/js/main.593a6b59.js"
+    "static/css/main.09993917.css",
+    "static/js/main.32232b71.js"
   ]
 }
